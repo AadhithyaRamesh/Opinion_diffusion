@@ -1,0 +1,6 @@
+Scale test.
+Parse links and add.
+Storing in a graph database.
+Libraries on graph databases.
+Centrality.
+Read up on IGraph.

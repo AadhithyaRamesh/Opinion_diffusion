@@ -1,0 +1,10 @@
+tweet : cluster dictionary
+plot cluster wise user network
+
+Database structure : schema and nosql?
+
+Graph image based on timestamp
+One to one abstraction and expession of tweet
+store timestamp and tweet for users.
+	
+Twitter api access for tweets and documents and links attached

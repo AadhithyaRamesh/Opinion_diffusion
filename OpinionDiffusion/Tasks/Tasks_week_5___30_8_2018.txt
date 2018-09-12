@@ -1,0 +1,5 @@
+function(keyword, no of tweets) -> call clustering API(keyword, no_of_tweets) -> graph dataframe(timestamp and cluster-wise) -> abstraction and expression for each tweet
+
+Make an API to give the network dataframe given keyword and no of tweets and timestamp.
+
+Given tweet abstraction and expression implement influence measurement. (Research)

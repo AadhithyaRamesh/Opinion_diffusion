@@ -1,0 +1,11 @@
+attribute selection for display
+
+---------->sort by dominance. Display network of top x.
+
+---------->Figure out negative value
+---------->Assign 0 dominance to single nodes, self loops
+
+interactive network shows name only on hover.
+
+---------->Histogram of dominance.
+centrality measures implementation and documentation.

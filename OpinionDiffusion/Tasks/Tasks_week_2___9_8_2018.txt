@@ -1,0 +1,8 @@
+--------->Add edge weights for number of retweets between same pair
+--------->Type of edge for edge to link node and edge to user node
+--------->Type of node for link type or user type
+Hash map to store list of retweeters and links
+Link edges to original link 
+--------->Retweet edges
+
+--------->retweeter to original
