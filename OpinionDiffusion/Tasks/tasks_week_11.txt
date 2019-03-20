@@ -1,0 +1,4 @@
+avg degree of neighbours threshold
+iterate on degree and dominance thresholds
+run on new datasets
+check dominance calculation

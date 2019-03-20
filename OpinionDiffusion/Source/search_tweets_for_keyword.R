@@ -1,14 +1,13 @@
-setwd("D:/WSL/OpinionDiffusion")
-getwd()
 
-data = read.csv("Data/demonetization-tweets.csv")
+
+data = read.csv("../Data/inauguration.csv")
 
 #Function to search for input: keyword through input : tweets dataframe and gives output: List of Tweet indices whose
 #text contain input: keyword
 search_tweets_for_keyword = function(keyword, tweets)
 {
   selected_tweets = data.frame()
-  for (index in 1:10000)#1:nrow(tweets))
+  for (index in 1:nrow(tweets))
   {
     keyword = tolower(keyword)
     #Convert Dataframe row to named list.

@@ -3,9 +3,10 @@ library(hashmap)
 library(igraph)
 
 
-data = read.csv("Data/demonetization-tweets.csv")
+data = read.csv("../Data/demonetization-tweets.csv")
 # data = head(data)
 # str(data)
+# print(head(data))
 
 create_network = function(selected_tweets)
 {
@@ -17,7 +18,8 @@ create_network = function(selected_tweets)
   tweeters = c()
   edge_type = c()
   cluster_number = c()
-  
+
+  #Iterate over all selected tweets
   for (index in 1:nrow(selected_tweets))
   {
     
@@ -68,47 +70,63 @@ create_network = function(selected_tweets)
     }
     
   }
-  # cbind(nodes, text)
+  
   # Create Edge List dataframe
-  edges = data.frame(retweeters, tweeters, edge_type, stringsAsFactors = FALSE)
+  edges = data.frame(tweeters, retweeters, edge_type, stringsAsFactors = FALSE)
+  
+  # Combines repetitive edges to form a simgle edge with a weight attribute
   edges = aggregate(edges[,3], list(retweeters = edges[,1], tweeters = edges[,2], edge_type = edges[,3]), FUN = length)
   
+  # Assign name to the created Weight column
   colnames(edges)[4] = "weight"
 
-  # Convert friends matrix to an igraph object
-  network = graph_from_data_frame(d = edges, vertices = nodes, directed = FALSE)
+  # Convert edges and nodes dataframes to an igraph object
+  network = graph_from_data_frame(d = edges, vertices = nodes, directed = TRUE)
   
+  # Finds cliques in the given network
   # cliques = cliques(network)
-  print("Done")
+
+  print("Network Creation Done")
   
-  # print(edge_attr(network))
   # Make a very basic plot of the network
   # plot(network)
   
+  # Finds betweenness centrality of each node in the network
   # print(betweenness(network))
   
+  # Calls the dominance function.
   nodes = dominance(network, nodes)
+
+  # Eliminate nodes with NA values  
   nodes[is.na(nodes)] = 0
   
-  sorted_nodes_by_dominance_desc = nodes[order(-nodes$dominance),]
-  # dominance_histogram = hist(nodes$dominance, main = "Dominance Histogram", xlab = "Dominance", breaks = seq(min(nodes$dominance), max(nodes$dominance), l = 20))
+  # Convert dominance inclusive dataframe to igraph object 
+  network = graph_from_data_frame(d = edges, vertices = nodes, directed = FALSE)
   
-  dominance_network = graph_from_data_frame(d = edges, vertices = nodes, directed = FALSE)
+  print("Dominance calculation done")
   
-  # V(dominance_network)$size = V(dominance_network)$dominance * 3 + 10#abs(min(dominance_network[,3]))
-  # V(dominance_network)$color = V(dominance_network)$dominance >= 2
-  # plot.igraph(dominance_network,vertex.label=NA,layout=layout.fruchterman.reingold)
+  # dominance_analysis(nodes, edges)
+
+  # Writes the edges and nodes dataframes into CSV files
+  write.csv(nodes, "../Data/Vertice_dataframe_demonet.csv")
+  write.csv(edges, "../Data/Edge_dataframe_demonet.csv")
   
-  print(head(sorted_nodes_by_dominance_desc, 15))
-  # print(length(V(network)))
-    
+  print("Write done")
+
 }
 
 start.time <- Sys.time()
 
-results = search_tweets_for_keyword("#Demonetization", data)
-# print("Results done")
-create_network(results)
+# For search keyword applied
+
+# results = search_tweets_for_keyword("#Demonetization", data)
+# # print("Results done")
+# create_network(results)
+
+#For raw data
+
+create_network(data)
+
 
 end.time <- Sys.time()
 time.taken <- end.time - start.time
